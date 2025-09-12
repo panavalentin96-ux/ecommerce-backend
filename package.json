@@ -1,23 +1,13 @@
 {
   "name": "ecommerce-backend",
   "version": "1.0.0",
-  "description": "E-commerce backend API",
-  "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node api/server.js",
-    "dev": "nodemon api/server.js"
+    "dev": "nodemon api/server.js",
+    "start": "node api/server.js"
   },
-  "keywords": [
-    "ecommerce",
-    "backend",
-    "nodejs",
-    "express",
-    "mongodb"
-  ],
-  "author": "panavalentin",
-  "license": "ISC",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
@@ -27,8 +17,5 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
-  },
-  "engines": {
-    "node": ">=18.x"
   }
 }

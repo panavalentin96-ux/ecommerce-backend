@@ -22,6 +22,10 @@ function runMiddleware(req, res, fn) {
 export default async function handler(req, res) {
   // Aplică CORS
   await runMiddleware(req, res, cors);
+// Răspunde la preflight request
+if (req.method === "OPTIONS") {
+  return res.status(200).end();
+}
 
   // Conectare la MongoDB
   await connectDB();

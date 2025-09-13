@@ -1,6 +1,22 @@
+import Cors from "cors";
 import User from "../models/user.js";
 import connectDB from "../utils/connectDB.js";
-import { cors, runMiddleware } from "./_middleware.js";
+
+// Initialize cors middleware
+const cors = Cors({
+  origin: process.env.FRONTEND_URL, // domeniul frontend live
+  methods: ["GET", "POST", "OPTIONS"]
+});
+
+// Helper pentru async/await
+function runMiddleware(req, res, fn) {
+  return new Promise((resolve, reject) => {
+    fn(req, res, (result) => {
+      if (result instanceof Error) return reject(result);
+      return resolve(result);
+    });
+  });
+}
 
 export default async function handler(req, res) {
   // Aplică CORS

@@ -1,9 +1,33 @@
 // backend/api/register.js
+import Cors from "cors";
 import User from "../models/user.js";
 import connectDB from "../utils/connectDB.js";
 
+// Initialize cors middleware
+const cors = Cors({
+  origin: "https://ecommerce-frontend-seven-rose.vercel.app", // frontend-ul tău
+  methods: ["GET", "POST"]
+});
+
+// Helper pentru a folosi middleware-ul cu async/await
+function runMiddleware(req, res, fn) {
+  return new Promise((resolve, reject) => {
+    fn(req, res, (result) => {
+      if (result instanceof Error) return reject(result);
+      return resolve(result);
+    });
+  });
+}
+
 export default async function handler(req, res) {
+  // Aplică CORS
+  await runMiddleware(req, res, cors);
+
+  // Conectare la MongoDB
   await connectDB();
+
+  // Log ca să vezi ce primește backend-ul
+  console.log("Date primite la register:", req.body);
 
   if (req.method !== "POST") {
     res.setHeader("Allow", ["POST"]);
